@@ -35,7 +35,6 @@ const SignUp = async (req, res) => {
             name,
             email,
             password: passwordHash,
-            board: [],
         });
 
         const user = await newUser.save();
@@ -74,8 +73,6 @@ const LoginIn = async (req, res) => {
 
     }
 }
-
-
 
 
 module.exports = {

@@ -13,14 +13,9 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    boards: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-        }
-    ]
 },
 {
-    collection: 'Kanban-Users'
+    collection: 'Users'
 });
 
 const User = mongoose.model('User', UserSchema);

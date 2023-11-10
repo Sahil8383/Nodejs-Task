@@ -3,9 +3,30 @@ const jwt = require('jsonwebtoken');
 const bycrypt = require('bcrypt');
 
 
+const authMiddleware = (req, res, next) => {
+
+    const token = req.header('authorization');
+
+    if (!token) {
+        return res.status(401).json({ msg: 'Authorization denied, no token provided' });
+    }
+
+    try {
+
+        const decoded = jwt.verify(token, process.env.ACCESS_KEY);
+
+
+        req.user = decoded;
+        next(); 
+    } catch (error) {
+        res.status(401).json({ msg: 'Token is not valid' });
+    }
+};
+
+
 const SignUp = async (req, res) => {
     try {
-        const { name, email, password, role } = req.body;
+        const { name, email, password, } = req.body;
 
         const salt = await bycrypt.genSalt();
         const passwordHash = await bycrypt.hash(password, salt);
@@ -14,8 +35,7 @@ const SignUp = async (req, res) => {
             name,
             email,
             password: passwordHash,
-            tasks: [],
-            role,
+            board: [],
         });
 
         const user = await newUser.save();
@@ -46,7 +66,6 @@ const LoginIn = async (req, res) => {
         delete user.password;
         res.setHeader('authorization', token);
         res.setHeader('userid', user._id);
-        res.setHeader('role', user.role);
         res.status(200).json({ token, user ,  userId: user._id });
 
     } catch (error) {
@@ -57,21 +76,10 @@ const LoginIn = async (req, res) => {
 }
 
 
-// Get Users for HR
 
-const getAllUsers = async (req, res) => {
-    try {
-        
-        const users = await User.find();
-        res.status(200).json(users);
-
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
 
 module.exports = {
     SignUp,
     LoginIn,
-    getAllUsers
+    authMiddleware
 }

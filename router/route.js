@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { SignUp, LoginIn , getAllUsers} = require('../controllers/UserController');
+const { 
+    SignUp, 
+    LoginIn,
+    authMiddleware,
+} = require('../controllers/UserController');
+
 const { 
     createColumn,
     deleteColumn,
@@ -21,29 +26,35 @@ router.get('/', (req, res) => {
     res.send('Hello World');
 });
 
+
+// User Routes
+
+router.post('/signup', SignUp);
+router.post('/login', LoginIn);
+
 // Kanban Routes
 
-router.get('/getProject',getAllProjects);
-router.get('/getProject/:id',getSingleProject);
-router.post('/createProject',createProject);
-router.patch('/updateProject',updateProject);
-router.delete('/deleteProject/:id',deleteProject);
+router.get('/getProject',  authMiddleware , getAllProjects);
+router.get('/getProject/:id', authMiddleware , getSingleProject);
+router.post('/createProject', authMiddleware , createProject);
+router.patch('/updateProject', authMiddleware , updateProject);
+router.delete('/deleteProject/:id', authMiddleware , deleteProject);
 
 
 // Columns Routes
 
 router.get('/getColumns/:id',);
-router.post('/createColumn/:id',createColumn);
-router.delete('/projectId/:projId/columnId/:colId',deleteColumn);
-router.patch('/updateColumn/:proId',updateColumn);
+router.post('/createColumn/:id', authMiddleware ,createColumn);
+router.delete('/projectId/:projId/columnId/:colId', authMiddleware ,deleteColumn);
+router.patch('/updateColumn/:proId', authMiddleware ,updateColumn);
 
 
 // Tasks Routes
 
-router.get('/getTasks/:proId',getTasks);
-router.post('/createTask/:proId',createTask);
-router.delete('/deleteTask/:proId',deleteTask);
-router.patch('/updateTask/:proId',updateTask);
+router.get('/getTasks/:proId', authMiddleware ,getTasks);
+router.post('/createTask/:proId', authMiddleware ,createTask);
+router.delete('/deleteTask/:proId', authMiddleware ,deleteTask);
+router.patch('/updateTask/:proId', authMiddleware ,updateTask);
 
 
 module.exports = router;

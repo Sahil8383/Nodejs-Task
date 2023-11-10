@@ -13,12 +13,14 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    role:{
-        type: Number,
-    },
+    boards: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+        }
+    ]
 },
 {
-    collection: 'Users'
+    collection: 'Kanban-Users'
 });
 
 const User = mongoose.model('User', UserSchema);

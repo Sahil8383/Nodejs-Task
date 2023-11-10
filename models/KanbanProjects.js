@@ -17,6 +17,11 @@ const KanbanProjectSchema = new mongoose.Schema({
                 },
             }]
         }
+    ],
+    users: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+        }
     ]
 }, {
     collection: 'KanbanProjects'

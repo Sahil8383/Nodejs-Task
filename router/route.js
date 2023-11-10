@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const { 
     SignUp, 
     LoginIn,
@@ -20,6 +21,11 @@ const {
     updateTask,
     getTasks,
 } = require('../controllers/KanbanControllers');
+
+const { 
+    addUsers, 
+    removeUsers 
+} = require('../controllers/OnBoardingUsers');
 
 
 router.get('/', (req, res) => {
@@ -56,5 +62,9 @@ router.post('/createTask/:proId', authMiddleware ,createTask);
 router.delete('/deleteTask/:proId', authMiddleware ,deleteTask);
 router.patch('/updateTask/:proId', authMiddleware ,updateTask);
 
+
+// OnBoarding Routes
+router.post('/addUsers/:id', authMiddleware ,addUsers);
+router.patch('/removeUsers/:id', authMiddleware ,removeUsers);
 
 module.exports = router;

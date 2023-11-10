@@ -34,7 +34,8 @@ const createProject = async (req, res) => {
         const newProject = await KanbanProject.create(
             {
                 name: name || 'New Project',
-                columns: []
+                columns: [],
+                users: []
             }
         );
         res.status(201).json({ newProject });

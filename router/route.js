@@ -5,11 +5,19 @@ const {
     SignUp, 
     LoginIn,
     authMiddleware,
-} = require('../controllers/UserController');
+    getAllEmployees,
+    getEmployeeById,
+    updateEmployee,
+    deleteEmployee,
+} = require('../controllers/EmployeeController');
 
-// User Routes
+// Employee Routes
 
-router.post('/signup', SignUp);
+router.post('/employee', SignUp);
 router.post('/login', LoginIn);
+router.get('/employees', authMiddleware, getAllEmployees);
+router.get('/employee/:id', getEmployeeById);
+router.patch('/employee/:id', updateEmployee);
+router.delete('/employee/:id', deleteEmployee);
 
 module.exports = router;

@@ -3,6 +3,13 @@ const jwt = require('jsonwebtoken');
 const bycrypt = require('bcrypt');
 
 
+/**
+ * Middleware to authenticate requests using JWT token.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next function.
+ */
 const authMiddleware = (req, res, next) => {
 
     const token = req.header('authorization');
@@ -20,7 +27,12 @@ const authMiddleware = (req, res, next) => {
     }
 };
 
-
+/**
+ * Create a new employee account.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 const SignUp = async (req, res) => {
     try {
 
@@ -50,6 +62,12 @@ const SignUp = async (req, res) => {
     }
 }
 
+/**
+ * Authenticate and obtain an access token.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 const LoginIn = async (req, res) => {
     try {
 
@@ -78,7 +96,12 @@ const LoginIn = async (req, res) => {
     }
 }
 
-
+/**
+ * Retrieve a list of all employees with sorting, filtering, and pagination.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 const getAllEmployees = async (req, res) => {
     try {
         let query = {};
@@ -104,7 +127,12 @@ const getAllEmployees = async (req, res) => {
     }
 }
 
-
+/**
+ * Retrieve details of a specific employee by ID.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 const getEmployeeById = async (req, res) => {
     try {
 
@@ -122,6 +150,12 @@ const getEmployeeById = async (req, res) => {
     }
 }
 
+/**
+ * Update details of an existing employee by ID.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 const updateEmployee = async (req, res) => {
     try {
 
@@ -145,6 +179,12 @@ const updateEmployee = async (req, res) => {
     }
 }
 
+/**
+ * Delete a specific employee by ID.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 const deleteEmployee = async (req, res) => {
     try {
 
